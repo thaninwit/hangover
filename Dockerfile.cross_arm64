@@ -42,13 +42,12 @@ RUN	apt-get update && apt-get install -y --no-install-recommends \
 &&	ln -s /usr/bin/autoheader /usr/bin/autoheader-2.69
 
 RUN ln -s /usr/bin/clang /usr/bin/aarch64-linux-gnu-clang; ln -s /usr/bin/clang /usr/bin/aarch64-linux-gnu-clang++
-#now this is quite hacky, but we use winegcc for qemu as compiler and it always defaults to gcc, whereas we need clang
-RUN rm -f /usr/bin/aarch64-linux-gnu-gcc /usr/bin/aarch64-linux-gnu-g++
-RUN ln -s /usr/bin/clang /usr/bin/aarch64-linux-gnu-gcc; ln -s /usr/bin/clang /usr/bin/aarch64-linux-gnu-g++
 
 ENV NOTESTS 1
 ENV PKG_CONFIG aarch64-linux-gnu-pkg-config
 ENV CROSS_TRIPLE aarch64-linux-gnu
+ENV HANGOVER_WINE_TOOLS_CC clang
+ENV HANGOVER_WINE_TOOLS_CXX clang++
 ENV HANGOVER_WINE_CC aarch64-linux-gnu-clang
 ENV HANGOVER_WINE_CXX aarch64-linux-gnu-clang++
 
